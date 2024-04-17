@@ -1,9 +1,25 @@
 <%-include("./partials/header")-%>
-  <body class="bg-teal-600 flex justify-center items-center">
-    <main class=" ">
-      <h1 class="text-white font-extrabold text-center text-4xl">Hello World</h1>
-      <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, modi.</p>
-    </main>
+<main class="text-white flex flex-col justify-center gap-y-4">
+  <h1 class="font-extrabold text-center text-4xl">Todo List</h1>
 
-  </body>
-</html>
+    <% if (tasks.length > 0) {%> <% tasks.forEach(task => { %>
+
+    <div class="bg-black rounded-md p-2 flex justify-between">
+      <h3><%= task.title %></h3>
+      <% if (task.done_status == true) { %>
+      <p>yep</p>
+      <% } else { %>
+      <p>nup</p>
+      <% } %>
+    </div>
+
+    <% }) %> <% } else { %>
+    <p>there are no tasks...</p>
+    <% } %>
+
+    <a href="add-task" class="bg-black rounded-md py-2 w-full self-center text-center text-sm uppercase" >Create new task</a>
+
+  </div>
+</main>
+
+<%- include('./partials/footer.ejs') %>
