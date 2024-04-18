@@ -4,13 +4,14 @@
     Create new item
   </h1>
   <div class="list-container m-2">
-    <form >
+    <form action="/tasks" method="POST">
       <input
         class="text-black p-2"
         type="text"
-        id="task"
-        name="task"
+        id="title"
+        name="title"
         placeholder="Task..."
+        required
       />
       <button class="bg-black text-white p-2 rounded-md">Add task</button>
     </form>

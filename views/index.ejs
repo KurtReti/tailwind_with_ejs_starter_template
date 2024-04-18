@@ -6,20 +6,36 @@
 
     <div class="bg-black rounded-md p-2 flex justify-between">
       <h3><%= task.title %></h3>
-      <% if (task.done_status == true) { %>
-      <p>yep</p>
-      <% } else { %>
-      <p>nup</p>
-      <% } %>
+      <a class = 'delete cursor-pointer' id="delete" data-doc="<%= task._id %>">X</a>
     </div>
 
     <% }) %> <% } else { %>
     <p>there are no tasks...</p>
     <% } %>
 
-    <a href="add-task" class="bg-black rounded-md py-2 w-full self-center text-center text-sm uppercase" >Create new task</a>
+    <a href="add-task" class="bg-black crounded-md py-2 w-full self-center text-center text-sm uppercase" >Create new task</a>
 
-  </div>
+  </div> 
 </main>
+
+<script>
+	const listOfItems = document.querySelectorAll('.delete');
+
+  console.log(listOfItems)
+
+  listOfItems.forEach((task) => {
+    task.addEventListener('click', (event => {
+      const endpoint = `/tasks/${task.dataset.doc}`;
+      fetch(endpoint, {
+        method: 'DELETE'
+      })
+      .then((response) => response.json())
+      .then((data) => window.location.href = data.redirect)
+      .catch((err) => console.log(err))
+    }))
+  })
+
+
+</script>
 
 <%- include('./partials/footer.ejs') %>

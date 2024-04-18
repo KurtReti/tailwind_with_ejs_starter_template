@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require('mongoose')
 const Task = require('./models/Task')
+const taskController = require('./controllers/taskController')
 
 // setting up express with const
 const app = express();
@@ -32,28 +33,21 @@ app.use(morgan("dev"));
 
 // routers
 app.get("/", (req, res) => {
- ;const tasks = [
-		{title: 'blah blah 1', done_status: true},
-		{title: 'blah 2', done_status: false},
-		]
-	res.render('index', {tasks: tasks})
+	res.redirect('/tasks')
 });
 
-app.get("/create", (req, res) => {
-  res.render("create");
+// temp create new task page
+app.get("/add-task", (req, res) => {
+  res.render("add");
 });
 
-app.get('/add-task', (req, res) => {
-	const task = new Task({
-		title: 'Task 1',
-		done_status: false
-	})
 
-	task.save()
-		.then((result) => {
-			res.send(result)
-		})
-})
+// task routes
+app.get('/tasks', taskController.task_index)
+
+app.post('/tasks', taskController.task_create)
+
+app.delete('/tasks/:id', taskController.task_delete)
 
 // 404 route
 app.use((req, res) => {
@@ -62,3 +56,4 @@ app.use((req, res) => {
 
 // server listening
 
+ 
